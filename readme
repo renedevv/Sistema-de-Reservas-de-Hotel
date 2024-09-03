@@ -1,0 +1,33 @@
+# Sistema de Reservas de Hotel
+
+## Descrição
+
+Este projeto é um Sistema de Reservas de Hotel desenvolvido para gerenciar quartos, hóspedes e reservas de maneira eficiente. O sistema foi projetado para armazenar e manipular informações sobre os hóspedes, quartos disponíveis e reservas feitas, utilizando comandos SQL para criar, consultar, atualizar e deletar dados.
+
+## Funcionalidades
+
+- Gerenciamento de hóspedes, quartos e reservas.
+- Inserção, consulta, atualização e remoção de registros.
+- Integração de informações entre tabelas através de chaves estrangeiras.
+
+## Estrutura do Banco de Dados
+
+- **Hospedes**: Armazena informações sobre os hóspedes.
+- **Quartos**: Armazena informações sobre os quartos do hotel.
+- **Reservas**: Armazena informações sobre as reservas feitas pelos hóspedes.
+
+## Como Usar
+
+1. Clone este repositório.
+2. Execute o script SQL fornecido para criar o banco de dados e as tabelas.
+3. Insira dados iniciais para testar o sistema.
+4. Utilize os comandos de consulta, atualização e deleção conforme necessário.
+
+## Pré-requisitos
+
+- MySQL ou outro SGBD compatível.
+- Acesso a uma interface de linha de comando ou ferramenta de gerenciamento de banco de dados.
+
+## Licença
+
+Este projeto é licenciado sob a MIT License. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
