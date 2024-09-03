@@ -1,0 +1,102 @@
+-- 1. Criar o Banco de Dados
+CREATE DATABASE HotelManagementSystem;
+USE HotelManagementSystem;
+
+-- 2. Criar as Tabelas
+
+-- Tabela de Hóspedes
+CREATE TABLE Hospedes (
+    id_hospede INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(15),
+    email VARCHAR(100)
+);
+
+-- Tabela de Quartos
+CREATE TABLE Quartos (
+    id_quarto INT AUTO_INCREMENT PRIMARY KEY,
+    numero INT NOT NULL,
+    tipo VARCHAR(50),
+    preco DECIMAL(10, 2) NOT NULL
+);
+
+-- Tabela de Reservas
+CREATE TABLE Reservas (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    id_hospede INT,
+    id_quarto INT,
+    data_checkin DATE NOT NULL,
+    data_checkout DATE NOT NULL,
+    FOREIGN KEY (id_hospede) REFERENCES Hospedes(id_hospede),
+    FOREIGN KEY (id_quarto) REFERENCES Quartos(id_quarto)
+);
+
+-- 3. Inserir Dados
+
+-- Inserir Hóspedes
+INSERT INTO Hospedes (nome, telefone, email) VALUES
+('Carlos Silva', '123456789', 'carlos.silva@email.com'),
+('Ana Pereira', '987654321', 'ana.pereira@email.com'),
+('João Santos', '123123123', 'joao.santos@email.com'),
+('Mariana Oliveira', '321321321', 'mariana.oliveira@email.com'),
+('Lucas Costa', '456456456', 'lucas.costa@email.com');
+
+-- Inserir Quartos
+INSERT INTO Quartos (numero, tipo, preco) VALUES
+(101, 'Single', 150.00),
+(102, 'Single', 150.00),
+(201, 'Double', 200.00),
+(202, 'Double', 200.00),
+(301, 'Suite', 300.00),
+(302, 'Suite', 300.00),
+(401, 'Single', 150.00),
+(402, 'Double', 200.00),
+(403, 'Suite', 300.00),
+(404, 'Single', 150.00);
+
+-- Inserir Reservas
+INSERT INTO Reservas (id_hospede, id_quarto, data_checkin, data_checkout) VALUES
+(1, 101, '2024-09-10', '2024-09-15'),
+(2, 201, '2024-09-12', '2024-09-18'),
+(3, 301, '2024-09-20', '2024-09-25'),
+(4, 202, '2024-09-15', '2024-09-20'),
+(5, 302, '2024-09-10', '2024-09-13');
+
+-- 4. Consultar Dados
+
+-- Listar todos os hóspedes com suas reservas, incluindo os detalhes do quarto reservado
+SELECT h.nome, h.telefone, h.email, r.data_checkin, r.data_checkout, q.numero, q.tipo, q.preco
+FROM Reservas r
+JOIN Hospedes h ON r.id_hospede = h.id_hospede
+JOIN Quartos q ON r.id_quarto = q.id_quarto;
+
+-- Listar todos os quartos disponíveis para um determinado período (por exemplo, '2024-09-15' a '2024-09-20')
+SELECT q.numero, q.tipo, q.preco
+FROM Quartos q
+LEFT JOIN Reservas r ON q.id_quarto = r.id_quarto
+WHERE r.id_quarto IS NULL OR (r.data_checkout < '2024-09-15' OR r.data_checkin > '2024-09-20');
+
+-- 5. Atualizar Dados
+
+-- Atualizar as informações de contato de um hóspede específico (por exemplo, id_hospede = 2)
+UPDATE Hospedes 
+SET telefone = '999888777', email = 'ana.nova@email.com' 
+WHERE id_hospede = 2;
+
+-- Modificar o preço de um quarto (por exemplo, id_quarto = 301)
+UPDATE Quartos 
+SET preco = 350.00 
+WHERE id_quarto = 301;
+
+-- 6. Deletar Dados
+
+-- Excluir uma reserva específica (por exemplo, id_reserva = 3)
+DELETE FROM Reservas 
+WHERE id_reserva = 3;
+
+-- Remover um hóspede do banco de dados e garantir que todas as reservas associadas também sejam excluídas (por exemplo, id_hospede = 1)
+DELETE FROM Reservas 
+WHERE id_hospede = 1;
+
+DELETE FROM Hospedes 
+WHERE id_hospede = 1;
