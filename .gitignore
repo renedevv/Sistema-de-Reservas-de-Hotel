@@ -1,0 +1,9 @@
+# Arquivos e diretórios gerados por ambientes de desenvolvimento
+*.log
+*.env
+*.bak
+*.sql~
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
